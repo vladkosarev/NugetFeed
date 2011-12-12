@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b2b1d0c5-00ff-4381-b733-6a7994795b45" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+  <MetadataSources>
+    <MetadataSource Address="http://packages.nuget.org/v1/FeedService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="eb366c98-e3a3-4813-9ee9-932d77649345" SourceId="1" SourceUrl="http://packages.nuget.org/v1/FeedService.svc" />
+  </Metadata>
+  <Extensions />
+</ReferenceGroup>
