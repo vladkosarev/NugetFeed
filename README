@@ -1,0 +1,5 @@
+http://www.nugetfeed.com
+
+/rss for all feeds
+/rss/include/package1_package2_package3 to only get the feed for specified packages
+/rss/exclude/package1_package2_package3 to get the feed for all but specified packages
