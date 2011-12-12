@@ -13,31 +13,32 @@ namespace NuGetFeed.Controllers
 
         public RssActionResult RSSInclude(string include)
         {
+            if (include == null) return RSS(f => false);
             var included = include.Split('_').ToList();
-            Func<V1FeedPackage, bool> ignoreFunc = p =>
+            Func<V1FeedPackage, bool> excludeFunc = p =>
                 !included.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
-            return RSS(ignoreFunc);
+            return RSS(excludeFunc);
         }
 
-        public RssActionResult RSSIgnore(string ignore)
+        public RssActionResult RSSExclude(string exclude)
         {
-            var ignored = ignore == null ? new List<string>() : ignore.Split('_').ToList();
-            Func<V1FeedPackage, bool> ignoreFunc = p =>
+            var ignored = exclude == null ? new List<string>() : exclude.Split('_').ToList();
+            Func<V1FeedPackage, bool> excludeFunc = p =>
                 ignored.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
-            return RSS(ignoreFunc);
+            return RSS(excludeFunc);
         }
 
-        private RssActionResult RSS(Func<V1FeedPackage, bool> ignore)
+        private RssActionResult RSS(Func<V1FeedPackage, bool> exclude)
         {
             var nugetODataUrl = new Uri("http://packages.nuget.org/v1/FeedService.svc");
             var nugetOData = new FeedContext_x0060_1(nugetODataUrl);
 
             var packages = nugetOData.Packages.OrderByDescending(p => p.Published);
-            var packagesFeed = new List<SyndicationItem>();
+            var nugetFeed = new List<SyndicationItem>();
 
             foreach (var package in packages)
             {
-                if (ignore(package)) continue;
+                if (exclude(package)) continue;
 
                 var syndicationItem = new SyndicationItem(
                     package.Title,
@@ -45,7 +46,7 @@ namespace NuGetFeed.Controllers
                     new Uri(package.ProjectUrl ?? package.GalleryDetailsUrl),
                     package.Id,
                     package.LastUpdated);
-                packagesFeed.Add(syndicationItem);
+                nugetFeed.Add(syndicationItem);
             }
 
             return new RssActionResult
@@ -54,7 +55,7 @@ namespace NuGetFeed.Controllers
                     "NuGet Feed",
                     "NuGet OData feed converted to RSS",
                     new Uri("http://www.nugetfeed.com/"),
-                    packagesFeed)
+                    nugetFeed)
             };
         }
 
