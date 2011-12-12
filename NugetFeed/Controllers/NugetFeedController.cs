@@ -3,13 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
-using NugetRSS.NugetOData;
+using NugetFeed.NugetOData;
 
 namespace NugetRSS.Controllers
 {
     public class NugetFeedController : Controller
     {
-        public RssActionResult RSS()
+
+        public RssActionResult RSSInclude(string include)
+        {
+            var included = include.Split('_').ToList();
+            Func<V1FeedPackage, bool> ignoreFunc = p =>
+                !included.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
+            return RSS(ignoreFunc);
+        }
+
+        public RssActionResult RSSIgnore(string ignore)
+        {
+            var ignored = ignore == null ? new List<string>() : ignore.Split('_').ToList();
+            Func<V1FeedPackage, bool> ignoreFunc = p =>
+                ignored.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
+            return RSS(ignoreFunc);
+        }
+
+        private RssActionResult RSS(Func<V1FeedPackage, bool> ignore)
         {
             var nugetODataUrl = new Uri("http://packages.nuget.org/v1/FeedService.svc");
             var nugetOData = new FeedContext_x0060_1(nugetODataUrl);
@@ -19,6 +36,8 @@ namespace NugetRSS.Controllers
 
             foreach (var package in packages)
             {
+                if (ignore(package)) continue;
+
                 var syndicationItem = new SyndicationItem(
                     package.Title,
                     package.Description,
@@ -29,13 +48,15 @@ namespace NugetRSS.Controllers
             }
 
             return new RssActionResult
-                       {
-                           Feed = new SyndicationFeed(
-                               "Nuget Feed",
-                               "Nuget OData feed converted to RSS",
-                               new Uri("http://www.nugetfeed.com/rss"),
-                               packagesFeed)
-                       };
+            {
+                Feed = new SyndicationFeed(
+                    "Nuget Feed",
+                    "Nuget OData feed converted to RSS",
+                    new Uri("http://www.nugetfeed.com/"),
+                    packagesFeed)
+            };
         }
+
+
     }
 }

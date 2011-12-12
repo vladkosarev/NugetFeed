@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 12/11/2011 6:49:30 PM
-namespace NugetRSS.NugetOData
+// Generation date: 12/11/2011 9:58:59 PM
+namespace NugetFeed.NugetOData
 {
     
     /// <summary>
@@ -40,7 +40,7 @@ namespace NugetRSS.NugetOData
         {
             if (typeName.StartsWith("NuGetGallery", global::System.StringComparison.Ordinal))
             {
-                return this.GetType().Assembly.GetType(string.Concat("NugetRSS.NugetOData", typeName.Substring(12)), false);
+                return this.GetType().Assembly.GetType(string.Concat("NugetFeed.NugetOData", typeName.Substring(12)), false);
             }
             return null;
         }
@@ -52,7 +52,7 @@ namespace NugetRSS.NugetOData
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
-            if (clientType.Namespace.Equals("NugetRSS.NugetOData", global::System.StringComparison.Ordinal))
+            if (clientType.Namespace.Equals("NugetFeed.NugetOData", global::System.StringComparison.Ordinal))
             {
                 return string.Concat("NuGetGallery.", clientType.Name);
             }

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace NugetRSS
+namespace NugetFeed
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -16,17 +16,28 @@ namespace NugetRSS
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
-                "RSS",
-                "rss",
-                new { controller = "NugetFeed", action = "RSS" }
-            );
-
-            routes.MapRoute(
                 "Default",
                 "",
                 new { controller = "Default", action = "Index" }
             );
 
+            routes.MapRoute(
+                "RSS",
+                "rss",
+                new { controller = "NugetFeed", action = "RSSIgnore" }
+            );
+
+            routes.MapRoute(
+                "RSSIgnore",
+                "rss/ignore/{ignore}",
+                new { controller = "NugetFeed", action = "RSSIgnore", ignore = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "RSSInclude",
+                "rss/include/{include}",
+                new { controller = "NugetFeed", action = "RSSInclude", include = UrlParameter.Optional }
+            );
         }
 
         protected void Application_Start()
