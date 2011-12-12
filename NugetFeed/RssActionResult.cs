@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Web.Mvc;
 
-namespace NugetRSS
+namespace NugetFeed
 {
     public class RssActionResult : ActionResult
     {

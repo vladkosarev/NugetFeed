@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
-using NugetFeed.NugetOData;
+using NuGetFeed.NuGetOData;
+using NugetFeed;
 
-namespace NugetRSS.Controllers
+namespace NuGetFeed.Controllers
 {
     public class NugetFeedController : Controller
     {
@@ -50,8 +51,8 @@ namespace NugetRSS.Controllers
             return new RssActionResult
             {
                 Feed = new SyndicationFeed(
-                    "Nuget Feed",
-                    "Nuget OData feed converted to RSS",
+                    "NuGet Feed",
+                    "NuGet OData feed converted to RSS",
                     new Uri("http://www.nugetfeed.com/"),
                     packagesFeed)
             };

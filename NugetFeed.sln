@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetFeed", "NugetFeed\NugetFeed.csproj", "{DEAF1102-1702-4759-BE31-C757418EAD63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGetFeed", "NuGetFeed\NuGetFeed.csproj", "{DEAF1102-1702-4759-BE31-C757418EAD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
