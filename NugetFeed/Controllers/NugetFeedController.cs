@@ -10,7 +10,6 @@ namespace NuGetFeed.Controllers
 {
     public class NugetFeedController : Controller
     {
-
         public RssActionResult RSSInclude(string include)
         {
             if (include == null) return RSS(f => false);
@@ -56,6 +55,8 @@ namespace NuGetFeed.Controllers
                     "NuGet Feed",
                     "NuGet OData feed converted to RSS",
                     new Uri("http://www.nugetfeed.com/"),
+                    "urn:uuid:f4df456c-6643-4c53-a6e5-f180ce6e030d",
+                    nugetFeed.First().LastUpdatedTime,
                     nugetFeed)
             };
         }
