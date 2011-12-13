@@ -28,9 +28,9 @@ namespace NugetFeed
             );
 
             routes.MapRoute(
-                "RSSIgnore",
-                "rss/exclude/{ignore}",
-                new { controller = "NugetFeed", action = "RSSExclude", ignore = UrlParameter.Optional }
+                "RSSExclude",
+                "rss/exclude/{exclude}",
+                new { controller = "NugetFeed", action = "RSSExclude", exclude = UrlParameter.Optional }
             );
 
             routes.MapRoute(

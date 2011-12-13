@@ -14,7 +14,7 @@ namespace NuGetFeed.Controllers
         public RssActionResult RSSInclude(string include)
         {
             if (include == null) return RSS(f => false);
-            var included = include.Split('_').ToList();
+            var included = include.Split(',').ToList();
             Func<V1FeedPackage, bool> excludeFunc = p =>
                 !included.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
             return RSS(excludeFunc);
@@ -22,9 +22,10 @@ namespace NuGetFeed.Controllers
 
         public RssActionResult RSSExclude(string exclude)
         {
-            var ignored = exclude == null ? new List<string>() : exclude.Split('_').ToList();
+            var excluded = exclude == null ? new List<string>() : exclude.Split(',').ToList();
+            
             Func<V1FeedPackage, bool> excludeFunc = p =>
-                ignored.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
+                excluded.Exists(i => p.Title.IndexOf(i, StringComparison.OrdinalIgnoreCase) >= 0);
             return RSS(excludeFunc);
         }
 
