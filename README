@@ -1,7 +1,5 @@
 http://www.nugetfeed.com
 
 /rss for all packages
-/rss/include/package1_package2_package3 to only get the feed for specified packages
-/rss/exclude/package1_package2_package3 to get the feed for all but specified packages
-
-Underscore will be replaced once I figure oute the best symbol to not clash with NuGet repo
+/rss/include/package1,package2,package3 to only get the feed for specified packages
+/rss/exclude/package1,package2,package3 to get the feed for all but specified packages
